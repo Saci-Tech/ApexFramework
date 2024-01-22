@@ -40,11 +40,11 @@ public virtual class Virtual_Models {
          * @param externalId String representing another system's exclusive identifier
          */
         public ContactModel(String firstName, String lastName, String email, String phone, String externalId) {
+            super(externalId);
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
             this.phone = phone;
-            super(externalId);
         }
     }
     /**
@@ -71,13 +71,28 @@ public virtual class Virtual_Models {
          * @param externalId String representing the unique identifier for a record in an external system
          */
         public AddressModel(String street, String city, String state, String country, String postalCode, String externalId) {
+            super(externalId);
             this.street = street;
             this.city = city;
             this.state = state;
             this.country = country;
             this.postalCode = postalCode;
-            super(externalId);
         }
     }
-    public virtual class AccountModel extends BaseModel {}
+    public virtual class AccountModel extends BaseModel {
+        public String name { get; set; }
+        public String phone { get; set; }
+        public AddressModel billingAddress { get; set; }
+
+        public AccountModel() {
+            super();
+        }
+        public AccountModel(String name, String phone, AddressModel billingAddress, String externalId) {
+            super(externalId);
+            this.name = name;
+            this.phone = phone;
+            this.billingAddress = new AddressModel();
+            this.billingAddress = billingAddress;
+        }
+    }
 }
