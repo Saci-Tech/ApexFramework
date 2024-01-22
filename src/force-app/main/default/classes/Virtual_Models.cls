@@ -79,6 +79,11 @@ public virtual class Virtual_Models {
             this.postalCode = postalCode;
         }
     }
+    /**
+     * Virtual Class AccountModel
+     * Contains basic field variables for the Account SObject
+     * Once extended, additional fields can be included for specific purposes
+     */
     public virtual class AccountModel extends BaseModel {
         public String name { get; set; }
         public String phone { get; set; }
@@ -87,6 +92,12 @@ public virtual class Virtual_Models {
         public AccountModel() {
             super();
         }
+        /**
+         * @param name String representing an account name
+         * @param phone String representing an account phone
+         * @param billingAddress Address Data Model representing a set of address fields
+         * @param externalId String representing an exclusive identifier on an external system
+         */
         public AccountModel(String name, String phone, AddressModel billingAddress, String externalId) {
             super(externalId);
             this.name = name;
