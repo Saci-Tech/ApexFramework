@@ -106,4 +106,5 @@ public virtual class Virtual_Models {
             this.billingAddress = billingAddress;
         }
     }
+    // Create more virtual classes models as necessary for your needs
 }
