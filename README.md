@@ -68,4 +68,5 @@ The next set of classes I want to build are Controllers, be it for the old but s
 
 Will add also a way to better handle recursive triggering, Flows ApexActions, and 
 
+
 For now, the License is the LGPL-2.1, but that may change as necessary - only time will tell which direction this repo will take.
