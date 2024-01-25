@@ -1,0 +1,13 @@
+# .circleci/testing-config.yml
+jobs:
+  test-all-classes:
+    filters:
+      branches:
+        only:
+          - testing
+      schedules:
+        - cron: "0 2 * * *"
+  filters:
+    branches:
+      only:
+        - testing

@@ -1,19 +1,36 @@
+# .circleci/config.yml
 version: 2.1
-  orbs:
-    apex: circleci/salesforce-apex@x.y
-  jobs:
-    install_authenticate:
-      docker:
-        - image: cimg/node:14.5
-      steps:
-        - checkout
-        - apex/setup:
-           defaultusername: user@email.com
-        - run:
-            name: SFDX commands
-            command: |
-              sf org create scratch --definition-file config/project-scratch-def.json --alias ApexFramework --no-namespace --duration-days 1
-  workflows:
-    basic-test:
-      jobs:
-        - install_authenticate
+
+include:
+  - base-config.yml
+  - feature-config.yml
+  - develop-config.yml
+  - testing-config.yml
+  - release-config.yml
+
+workflows:
+  version: 2.1
+  feature:
+    jobs:
+      - setup-sfdx
+      - test-changed-classes:
+          requires:
+            - setup-sfdx
+  develop:
+    jobs:
+      - setup-sfdx
+      - test-merged-classes:
+          requires:
+            - setup-sfdx
+  testing:
+    jobs:
+      - setup-sfdx
+      - test-all-classes:
+          requires:
+            - setup-sfdx
+  release:
+    jobs:
+      - setup-sfdx
+      - weekly-test:
+          requires:
+            - setup-sfdx
