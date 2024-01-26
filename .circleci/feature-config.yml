@@ -1,11 +1,1 @@
-# .circleci/feature-config.yml
-jobs:
-  test-changed-classes:
-    filters:
-      branches:
-        only:
-          - feature
-  filters:
-    branches:
-      only:
-        - feature
+

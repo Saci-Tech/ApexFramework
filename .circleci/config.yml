@@ -1,36 +1,27 @@
-# .circleci/config.yml
 version: 2.1
- 
-include:
-  - base-config.yml
-  - feature-config.yml
-  - develop-config.yml
-  - testing-config.yml
-  - release-config.yml
-
+jobs:
+  setup-auth:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      #- checkout 
+      - run: 
+          name: Install SF CLI
+          command: |
+            npm install --verbose @salesforce/cli
+      - run: 
+          name: Authenticate JWT
+          command: | 
+            echo $SFDX_JWT_KEY | base64 -d - > ~/server.key
+            npx sf org login jwt --client-id "$SFDX_CONSUMER_KEY" --jwt-key-file ~/server.key --username "$USER_NAME"
+  repo-checkout:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - run:
+          command: | 
+            echo ""
 workflows:
-  version: 2.1
-  feature:
+  setup-auth-workflow:
     jobs:
-      - setup-sfdx
-      - test-changed-classes:
-          requires:
-            - setup-sfdx
-  develop:
-    jobs:
-      - setup-sfdx
-      - test-merged-classes:
-          requires:
-            - setup-sfdx
-  testing:
-    jobs:
-      - setup-sfdx
-      - test-all-classes:
-          requires:
-            - setup-sfdx
-  release:
-    jobs:
-      - setup-sfdx
-      - weekly-test:
-          requires:
-            - setup-sfdx
+      - setup-auth

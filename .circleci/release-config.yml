@@ -1,13 +1,1 @@
-# .circleci/release-config.yml
-jobs:
-  weekly-test:
-    filters:
-      branches:
-        only:
-          - release
-      schedules:
-        - cron: "0 1 * * 5"
-  filters:
-    branches:
-      only:
-        - release
+
