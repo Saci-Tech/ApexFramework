@@ -1,3 +1,5 @@
+[![Saci-Tech](https://circleci.com/gh/Saci-Tech/ApexFramework.svg?style=svg)](<LINK>)
+
 # Salesforce's Apex Framework
 
 The goal here is to create a solid structure of Apex classes, using the bare minimum of code, by reusing most of the code, while building specialized classes.
