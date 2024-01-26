@@ -1,19 +1,27 @@
 version: 2.1
-  orbs:
-    apex: circleci/salesforce-apex@x.y
-  jobs:
-    install_authenticate:
-      docker:
-        - image: cimg/node:14.5
-      steps:
-        - checkout
-        - apex/setup:
-           defaultusername: user@email.com
-        - run:
-            name: SFDX commands
-            command: |
-              sf org create scratch --definition-file config/project-scratch-def.json --alias ApexFramework --no-namespace --duration-days 1
-  workflows:
-    basic-test:
-      jobs:
-        - install_authenticate
+jobs:
+  setup-auth:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      #- checkout 
+      - run: 
+          name: Install SF CLI
+          command: |
+            npm install --verbose @salesforce/cli
+      - run: 
+          name: Authenticate JWT
+          command: | 
+            echo $SFDX_JWT_KEY | base64 -d - > ~/server.key
+            npx sf org login jwt --client-id "$SFDX_CONSUMER_KEY" --jwt-key-file ~/server.key --username "$USER_NAME"
+  repo-checkout:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - run:
+          command: | 
+            echo ""
+workflows:
+  setup-auth-workflow:
+    jobs:
+      - setup-auth
