@@ -1,4 +1,6 @@
-[![Saci-Tech](https://circleci.com/gh/Saci-Tech/ApexFramework.svg?style=svg)](<LINK>)
+[![Apex](https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=Salesforce&logoColor=white)](https://login.salesforce.com)
+
+[![Saci-Tech](https://circleci.com/gh/Saci-Tech/ApexFramework.svg?branch=main&style=shield)](<LINK>)
 
 # Salesforce's Apex Framework
 
